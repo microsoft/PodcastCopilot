@@ -1,14 +1,42 @@
-# Project
+# Podcast Copilot
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+This code was demonstrated at the Build 2023 keynote by Microsoft CTO Kevin Scott, illustrating the architecture of a Copilot.  
 
-As the maintainer of this project, please make a few updates:
+Kevin Scott hosts a podcast, [Behind the Tech](https://www.microsoft.com/behind-the-tech).  This Podcast Copilot makes it easier to generate a social media post promoting a new episode of the podcast, when given the audio file for the podcast.  The Podcast Copilot uses a series of machine learning models orchestrated by LangChain to do this:
++ Given the podcast audio file, the Whisper model performs speech-to-text to generate a transcript of the podcast.  
++ Given this transcript, the Dolly 2 model extracts the name of the guest on the podcast.  
++ Given the guest name, the Bing Search Grounding API retrieves a bio for the guest from the internet.  
++ Given the transcript and guest's bio, the GPT-4 model generates a social media post promoting the podcast episode.  
++ Given the social media post, we use GPT-4 to create a relevant DALL-E prompt. 
++ Given that DALL-E prompt, the DALL-E model generates a corresponding image for the post.  
++ Finally, the user has an opportunity to review the content before posting, and if approved, a LinkedIn plugin will post the social media copy and image to LinkedIn.  
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+![Diagram of the data flow and chain of machine learning models described above](./images/PodcastCopilotDataFlow.png)
+
+For the demo, we ran Whisper and Dolly 2 locally.  The Bing Search Grounding API is available on Azure.  We used model deployments of GPT-4, DALL-E 2, and a plugins-capable model on the Azure OpenAI service.  
+
+## Setup
+
+This project requires creating an Azure OpenAI resource to run several cloud-based models.  
++ You can request access to Azure OpenAI at https://aka.ms/oai/access.  
++ After approval, create an Azure OpenAI resource at https://portal.azure.com/#create/Microsoft.CognitiveServicesOpenAI following the instructions at https://learn.microsoft.com/azure/cognitive-services/openai/how-to/create-resource.  
++ You will need to create model deployments of the following models: gpt-4, dalle, and a plugins-capable model.  Follow the instructions [here](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/create-resource#deploy-a-model).  
+
+You will also need to create a Bing search resource at https://portal.azure.com/#create/Microsoft.BingSearch.  
+
+Next, update the PodcastSocialMediaCopilot.py file with your settings.  
++ Update **bing_subscription_key** with the API key of your Bing resource on Azure.  
++ Update **openai_api_base** with the name of your Azure OpenAI resource; this value should look like this: "https://YOUR_AOAI_RESOURCE_NAME.openai.azure.com/"
++ Update **openai_api_key** with the corresponding API key for your Azure OpenAI resource.  
++ Update **gpt4_deployment_name** with the name of your model deployment for GPT-4 in your Azure OpenAI resource.  
++ If your model deployments for gpt-4, dalle, and the plugins-capable model are all on the same Azure OpenAI resource, you're all set!  If not, you can override the individual endpoints and keys for the resources for the various model deployments using the variables **gpt4_endpoint**, **gpt4_api_key**, **dalle_endpoint**, **dalle_api_key**, **plugin_model_url**, and **plugin_model_api_key**.  
++ Optionally, you can also update the **podcast_url** and **podcast_audio_file** to reflect your own podcast.  
+
+Finally, set up your environment and run the code using the following commands:
+```
+pip install -r requirements.txt
+python PodcastSocialMediaCopilot.py
+```
 
 ## Contributing
 
