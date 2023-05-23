@@ -102,8 +102,9 @@ print("\n")
 
 # Step 2 - Make a call to a local Dolly 2.0 model optimized for Windows to extract the name of who I'm interviewing from the transcript
 print("Calling a local Dolly 2.0 model optimized for Windows to extract the name of the podcast guest...\n")
-tokenizer = AutoTokenizer.from_pretrained("models/dolly_v2_7b_merged_fp16.0.0.1", padding_side="left")
-model = ORTModelForCausalLM.from_pretrained("models/dolly_v2_7b_merged_fp16.0.0.1", provider="DmlExecutionProvider", use_cache=True, use_merged=True, use_io_binding=False)
+repo_id = "microsoft/dolly-v2-7b-olive-optimized"
+tokenizer = AutoTokenizer.from_pretrained(repo_id, padding_side="left")
+model = ORTModelForCausalLM.from_pretrained(repo_id, provider="DmlExecutionProvider", use_cache=True, use_merged=True, use_io_binding=False)
 streamer = TextStreamer(tokenizer, skip_prompt=True)
 generate_text = InstructionTextGenerationPipeline(model=model, streamer=streamer, tokenizer=tokenizer, max_new_tokens=128, return_full_text=True, task="text-generation")
 hf_pipeline = HuggingFacePipeline(pipeline=generate_text)

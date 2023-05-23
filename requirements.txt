@@ -2,7 +2,6 @@ torch
 transformers
 optimum
 onnx
-wheels/dolly_v2_wheel.0.0.4/onnxruntime_directml-1.16.0-cp39-cp39-win_amd64.whl
 openai-whisper
 langchain
 pydub
