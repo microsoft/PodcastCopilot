@@ -15,6 +15,10 @@ Kevin Scott hosts a podcast, [Behind the Tech](https://www.microsoft.com/behind-
 
 For the demo, we ran Whisper and Dolly 2 locally.  The Bing Search Grounding API is available on Azure.  We used model deployments of GPT-4, DALL-E 2, and a plugins-capable model on the Azure OpenAI service.  
 
+Please note that as of Build (May 2023):
++ The DALL-E models are still in private preview. For the DALL-E model, you must request access using the form at https://aka.ms/oai/access and in question #22, request access to the DALL-E models for image generation.
++ The plugins-capable models are not publicly released yet.
+
 ## Setup
 
 This project requires creating an Azure OpenAI resource to run several cloud-based models.  
