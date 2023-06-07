@@ -290,7 +290,7 @@ print("Calling GPT-4 model with plugin support on Azure OpenAI Service to post t
 payload = {
     "messages": PROMPT_MESSAGES,
     "max_tokens": 1024,
-    "temperature": 0.5,
+    "temperature": 0.0,
     "n": 1,
     "stop": None
 }
