@@ -33,6 +33,7 @@ Next, update the PodcastSocialMediaCopilot.py file with your settings.
 + Update **openai_api_base** with the name of your Azure OpenAI resource; this value should look like this: "https://YOUR_AOAI_RESOURCE_NAME.openai.azure.com/"
 + Update **openai_api_key** with the corresponding API key for your Azure OpenAI resource.  
 + Update **gpt4_deployment_name** with the name of your model deployment for GPT-4 in your Azure OpenAI resource.  
++ Update **dalle_deployment_name** with the name of your model deployment for Dall-E in your Azure OpenAI resource.  
 + If your model deployments for gpt-4, dalle, and the plugins-capable model are all on the same Azure OpenAI resource, you're all set!  If not, you can override the individual endpoints and keys for the resources for the various model deployments using the variables **gpt4_endpoint**, **gpt4_api_key**, **dalle_endpoint**, **dalle_api_key**, **plugin_model_url**, and **plugin_model_api_key**.  
 + Optionally, you can also update the **podcast_url** and **podcast_audio_file** to reflect your own podcast.  
 

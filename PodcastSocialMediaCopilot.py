@@ -49,7 +49,8 @@ bing_subscription_key = "TODO"                              # Your key will look
 openai_api_type = "azure"
 openai_api_base = "https://TODO.openai.azure.com/"          # Your endpoint will look something like  this: https://YOUR_AOAI_RESOURCE_NAME.openai.azure.com/
 openai_api_key = "TODO"                                     # Your key will look something like this: 00000000000000000000000000000000
-gpt4_deployment_name="gpt-4"
+gpt4_deployment_name = "gpt-4"
+dalle_deployment_name = "Dalle3"
 
 # We are assuming that you have all model deployments on the same Azure OpenAI service resource above.  If not, you can change these settings below to point to different resources.
 gpt4_endpoint = openai_api_base                             # Your endpoint will look something like  this: https://YOUR_AOAI_RESOURCE_NAME.openai.azure.com/
@@ -250,7 +251,7 @@ dalle_prompt = dalle_prompt + ", high-quality digital art"
 print("Calling DALL-E model on Azure OpenAI Service to get an image for social media...\n")
 
 # Establish the client class instance
-client = ImageClient(dalle_endpoint, dalle_api_key, verbose=False) # change verbose to True for including debug print statements
+client = ImageClient(dalle_endpoint, dalle_api_key, dalle_deployment_name, verbose=False) # change verbose to True for including debug print statements
 
 # Generate an image
 imageURL, postImage =  client.generateImage(dalle_prompt)
